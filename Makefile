@@ -26,3 +26,7 @@ fclean:
 	make clean
 	rm -rf src/*/*__
 	rm -rf src/*__
+
+re:
+	make fclean
+	make
