@@ -94,4 +94,6 @@ class parser:
 
     # get message from stdin
     def get_message(self) -> int:
+        message = sys.stdin.readline()[:-1]
+        print(f"message = {message} and len of message = {len(message)}")
         return 0
