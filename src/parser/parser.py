@@ -23,6 +23,7 @@ class parser:
         self.key = None
         self.p = None
         self.q = None
+        self.message = None
     
     def check_errors(self) -> int:
         if self.mode is None:
@@ -94,6 +95,7 @@ class parser:
 
     # get message from stdin
     def get_message(self) -> int:
-        message = sys.stdin.readline()[:-1]
-        print(f"message = {message} and len of message = {len(message)}")
+        self.message = sys.stdin.read()[:-1]
+        if not self.message:
+            return 84
         return 0

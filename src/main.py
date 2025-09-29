@@ -1,18 +1,21 @@
 # file import change in Makefile to avoid error
 from parser import parser
+from manager import manager
 
 
 import sys
 
 def main(argv):
-    arg = parser.parser(argv)
+    args = parser.parser(argv)
 
-    if arg.parse() == 0:
-        print(f"mode = {arg.mode}\nsystem = {arg.system}\nand key = {arg.key}\ndebug mode = {arg.block_mode} ")
-        arg.get_message()
+    if (not args.parse() and not args.get_message()):
+        print(f"mode = {args.mode}\nsystem = {args.system}\n"
+              f"and key = {args.key}\ndebug mode = {args.block_mode} ")
+        print(f"message = {args.message}"
+              f"and len of message = {len(args.message)}")
+        manager.encryption_decryption(args)
     else:
         sys.exit(84)
-    return 0
 
 if __name__ == "__main__":
    main(sys.argv[1:])

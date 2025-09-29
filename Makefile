@@ -5,17 +5,16 @@
 ## Makefile
 ##
 
-PYTHON_SRC = src/main.py
-BIN_DIR = ./
+PYTHON_SRC = $(wildcard src/**/*.py src/*.py)
 TARGET = my_pgp
 .PHONY: all clean
 
 all: $(TARGET)
 
 $(TARGET): $(PYTHON_SRC)
-	@mkdir -p $(BIN_DIR)
 	@echo '#!/bin/python3'> $(TARGET)
 	@echo 'from src.parser import parser' >> $(TARGET)
+	@echo 'from src.manager import manager' >> $(TARGET)
 	@tail -n +5  $(PYTHON_SRC) >> $(TARGET)
 	@chmod +x $(TARGET)
 
