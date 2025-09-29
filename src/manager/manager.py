@@ -10,4 +10,4 @@ def encryption_decryption(args):
         mode = False
     if args.system == parser.system.xor:
         message = xor_c_d.xor_cipher(args.message, args.key, mode, args.block_mode)
-    print(f"encrypted data = \n{message}")
+    print(f"{message}")

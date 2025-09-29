@@ -24,7 +24,7 @@ class parser:
         self.p = None
         self.q = None
         self.message = None
-    
+ 
     def check_errors(self) -> int:
         if self.mode is None:
             return 84
