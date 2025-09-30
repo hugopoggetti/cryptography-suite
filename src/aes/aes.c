@@ -24,6 +24,8 @@ const char *aes_encrypt
 {
     const char **key_ex = key_expansion(key);
     display_array(key_ex);
+
+    free_list((char **)key_ex);
     return "encrypt";
 }
 

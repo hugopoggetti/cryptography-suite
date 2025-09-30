@@ -16,13 +16,13 @@ LIB_SRC := $(wildcard $(LIB_SRC_DIR)/*.c)
 LIB_OBJ := $(patsubst $(LIB_SRC_DIR)/%.c,$(LIB_OBJ_DIR)/%.o,$(LIB_SRC))
 LIB = ./lib/libcipher.so
 LIB_DIR = lib
+CFLAGS += -Wall -Wextra -Wconversion -Wshadow -Wpointer-arith -Wcast-align -Wuninitialized -Wpedantic
 
 .PHONY: all clean
 
 all: $(TARGET)
 
-$(TARGET): $(PYTHON_SRC)
-	make lib
+$(TARGET): $(PYTHON_SRC) $(LIB)
 	@echo '#!/bin/python3'> $(TARGET)
 	@echo 'from src.parser import parser' >> $(TARGET)
 	@echo 'from src.manager import manager' >> $(TARGET)
@@ -31,9 +31,9 @@ $(TARGET): $(PYTHON_SRC)
 
 lib:$(LIB)
 $(LIB): $(LIB_OBJ) | libdir
-	gcc -shared -o $@ $^
+	gcc -shared $(CFLAGS) -o $@ $^
 $(LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.c | $(LIB_OBJ_DIR)
-	gcc -fPIC -c $< -o $@
+	gcc -fPIC -c $(CFLAGS) $< -o $@
 $(LIB_OBJ_DIR):
 	mkdir -p $(LIB_OBJ_DIR)
 
