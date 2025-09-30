@@ -5,20 +5,21 @@
 char **get_words(const char *key, int words_nb)
 {
     char **words = malloc(sizeof(char *) * (unsigned long)(words_nb + 1));
-    int char_in_word = (int)strlen(key) / words_nb;
+    int c_in_word = (int)strlen(key) / words_nb;
     int char_index = 0;
     int word_index = 0;
 
-    words[word_index] =
-        malloc(sizeof(char) * (unsigned long)(char_in_word + 1));
+    words[word_index] = malloc(sizeof(char) * (unsigned long)(c_in_word + 1));
     for (size_t i = 0; key[i]; i++) {
-        if (char_index == char_in_word) {
+        if (char_index == c_in_word) {
             words[word_index][char_index] = '\0';
-            words[++word_index] = malloc(sizeof(char) * 
-                    (unsigned long)(char_in_word + 1));
+            word_index++;
+            words[word_index] =
+                malloc(sizeof(char) * (unsigned long)(c_in_word + 1));
             char_index = 0;
         }
-        words[word_index][char_index++] = key[i];
+        words[word_index][char_index] = key[i];
+        char_index++;
     }
     words[word_index][char_index] = '\0';
     words[word_index + 1] = NULL;
@@ -75,7 +76,7 @@ const char **concat_list(char **word_list, int rounds)
 const char **key_expansion(const char *key)
 {
     int round = get_aes_rounds_nb(key);
-    int words_nb = ((int)(strlen(key) / 2 ) / 4);
+    int words_nb = ((int)(strlen(key) / 2) / 4);
     int total_words = (4 * (round + 1));
     char **word_list = get_next_word(get_words(key, words_nb), total_words);
     const char **key_list = concat_list(word_list, round);

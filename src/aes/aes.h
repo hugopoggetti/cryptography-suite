@@ -9,13 +9,13 @@
 
 // Aes function definition for encryption/decryption
 const char *aes_c_d
-    (const char *message, const char *key, bool encrypt, bool block_mode);
+(const char *message, const char *key, bool encrypt, bool block_mode);
 const char *aes_encrypt
-    (const char *message, const char *key);
+(const char *message, const char *key);
 const char *aes_decrypt
-    (const char *message, const char *key);
+(const char *message, const char *key);
 
-// Aes key expansion 
+// Aes key expansion
 const char **key_expansion(const char *key);
 unsigned char rcon(int round);
 unsigned char sub_byte(unsigned char val);
@@ -31,8 +31,8 @@ unsigned char hex_char_to_val(char c);
 int get_aes_rounds_nb(const char *key);
 void free_list(char **list);
 
-static const unsigned char RCON[11] = 
-    {0x00, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1B, 0x36};
+static const unsigned char RCON[11] =
+{0x00, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1B, 0x36};
 
 static const unsigned char S_BOX[256] = {
     0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5,

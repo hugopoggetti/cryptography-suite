@@ -1,6 +1,6 @@
 ##
 ## EPITECH PROJECT, 2025
-## my_pgp 
+## my_pgp
 ## File description:
 ## Makefile
 ##
@@ -16,7 +16,8 @@ LIB_SRC := $(wildcard $(LIB_SRC_DIR)/*.c)
 LIB_OBJ := $(patsubst $(LIB_SRC_DIR)/%.c,$(LIB_OBJ_DIR)/%.o,$(LIB_SRC))
 LIB = ./lib/libcipher.so
 LIB_DIR = lib
-CFLAGS += -Wall -Wextra -Wconversion -Wshadow -Wpointer-arith -Wcast-align -Wuninitialized -Wpedantic
+CFLAGS += -Wall -Wextra -Wconversion -Wshadow\
+		  -Wpointer-arith -Wcast-align -Wuninitialized -Wpedantic
 
 .PHONY: all clean
 
@@ -43,7 +44,7 @@ libdir:
 clean:
 	rm -rf $(TARGET)
 	rm -rf $(LIB)
-	rm -rf $(LIB_OBJ) 
+	rm -rf $(LIB_OBJ)
 	rm -rf $(LIB_DIR)
 
 fclean:
