@@ -12,9 +12,11 @@ const char *aes_c_d
 
 void display_array(const char **array)
 {
-    for (int i = 0; array[i] != NULL; i++) {
+    int i = 0;
+    for (i = 0; array[i] != NULL; i++) {
         printf("%s\n", array[i]);
     }
+    printf("i == %d\n", i);
 }
 
 const char *aes_encrypt

@@ -133,11 +133,11 @@ void sub_word(char *word)
     }
 }
 
-char **get_next_word(char **words_split, const char *key)
+char **get_next_word(char **words_split, int nb_words)
 {
-    words_split = realloc(words_split, sizeof(char *) * 45);
-    
-    for (size_t i = 4; i <= 44; i++) {
+    words_split = realloc(words_split, sizeof(char *) * (nb_words + 1));
+ 
+    for (size_t i = 4; i <= nb_words; i++) {
         words_split[i] = malloc(sizeof(char) * 9);
         if (i % 4 == 0) {
             words_split[i] = memcpy(words_split[i], words_split[i - 1], 8);
@@ -148,7 +148,7 @@ char **get_next_word(char **words_split, const char *key)
            words_split[i] = xor_words(words_split[i], words_split[i - 4], words_split[i - 1]); 
         words_split[i][8] = '\0';
     }
-    words_split[44] = NULL;
+    words_split[nb_words] = NULL;
     return words_split;
 }
 
@@ -165,21 +165,41 @@ const char **concat_list(char **word_list)
         key_list[k] = malloc(sizeof(char) * 33);
         key_list[k][0] = '\0';
         for (int j = 0; j < 4; j++) {
-            int word_index = k*4 + j;
-            if (word_index >= num_words) break;
+            int word_index = k * 4 + j;
+            if (word_index >= num_words) 
+                break;
             strcat(key_list[k], word_list[word_index]);
         }
     }
     return (const char **)key_list;
 }
 
+void free_list(char **list)
+{
+    char **tmp = list;
+    while (*tmp) {
+        free(*tmp);
+        tmp++;
+    }
+    free(list);
+}
+
 const char **key_expansion(const char *key)
 {
-    // TODO: temp 10 for aes 128
-    int roun_nb = 10;
+    int type = (strlen(key) / 2) * 8;
+    int round = 0;
+    
+    if (type == 128)
+        round = 10;
+    else if (type == 192)
+        round = 12;
+    else
+        round = 14;
+
     int words_nb = ((strlen(key) / 2 ) / 4);
-    char **words_split = get_words(key, words_nb);
-    char **word_list = get_next_word(words_split, key);
+    int total_words = (4 * (round + 1));
+    char **word_list = get_next_word(get_words(key, words_nb), total_words);
     const char **key_list = concat_list(word_list);
+    free_list(word_list);
     return (const char **)key_list;
 }
