@@ -1,4 +1,5 @@
 #include "./aes.h"
+#include <stdio.h>
 
 const char *aes_c_d
     (const char *message, const char *key, bool encrypt, bool block_mode)
@@ -9,9 +10,18 @@ const char *aes_c_d
         return aes_decrypt(message,key);
 }
 
+void display_array(const char **array)
+{
+    for (int i = 0; array[i] != NULL; i++) {
+        printf("%s\n", array[i]);
+    }
+}
+
 const char *aes_encrypt
     (const char *message, const char *key)
 {
+    const char **key_ex = key_expansion(key);
+    display_array(key_ex);
     return "encrypt";
 }
 

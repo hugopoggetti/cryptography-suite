@@ -10,3 +10,6 @@ const char *aes_encrypt
     (const char *message, const char *key);
 const char *aes_decrypt
     (const char *message, const char *key);
+
+// Aes Utils
+const char **key_expansion(const char *key);
