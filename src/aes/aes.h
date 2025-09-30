@@ -7,13 +7,15 @@
 #include <stdlib.h>
 #include <strings.h>
 
+#define BLOCK_SIZE 16
+
 // Aes function definition for encryption/decryption
 const char *aes_c_d
 (const char *message, const char *key, bool encrypt, bool block_mode);
 const char *aes_encrypt
-(const char *message, const char *key);
+(const char *message, const char *key, bool block_mode);
 const char *aes_decrypt
-(const char *message, const char *key);
+(const char *message, const char *key, bool block_mode);
 
 // Aes key expansion
 const char **key_expansion(const char *key);
@@ -26,6 +28,9 @@ void rot_word(char *word);
 char *xor_words(char *new, char *a, char *b);
 unsigned char hex_pair_to_byte(char high, char low);
 unsigned char hex_char_to_val(char c);
+
+// Padding
+const char *padd_message(const char *message, bool block_mode, size_t *size);
 
 // Other
 int get_aes_rounds_nb(const char *key);

@@ -1,13 +1,16 @@
 #include "./aes.h"
+#include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 const char *aes_c_d
 (const char *message, const char *key, bool encrypt, bool block_mode)
 {
     if (encrypt)
-        return aes_encrypt(message, key);
+        return aes_encrypt(message, key, block_mode);
     else
-        return aes_decrypt(message, key);
+        return aes_decrypt(message, key, block_mode);
 }
 
 void display_array(const char **array)
@@ -21,17 +24,28 @@ void display_array(const char **array)
 }
 
 const char *aes_encrypt
-(const char *message, const char *key)
+(const char *message, const char *key, bool block_mode)
 {
-    const char **key_ex = key_expansion(key);
+    size_t size = strlen(message);
+    const char **keys = key_expansion(key);
+    message = padd_message(message, block_mode, &size);
+ 
+    // Pading test
+    for (int i = 0; i < size; i++) {
+        if (!message[i])
+            printf(".");
+        else
+            printf("%c", message[i]);
+    }
+    printf("\n"); 
 
-    display_array(key_ex);
-    free_list((char **)key_ex);
+    display_array(keys);
+    free_list((char **)keys);
     return "encrypt";
 }
 
 const char *aes_decrypt
-(const char *message, const char *key)
+(const char *message, const char *key, bool block_mode)
 {
     return "decrypt";
 }
