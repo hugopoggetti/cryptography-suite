@@ -19,10 +19,10 @@ char *padd_block_mode(const char *message, size_t *size)
         memcpy(padded, message, *size);
         memset(padded + *size, 0, diff);
         (*size) = BLOCK_SIZE;
-    } else if (*size > BLOCK_SIZE) {
+    } else {
         memcpy(padded, message, BLOCK_SIZE);
         (*size) = BLOCK_SIZE;
-    }
+    } 
     return padded;
 }
 

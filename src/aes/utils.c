@@ -6,6 +6,7 @@
 */
 
 #include "./aes.h"
+#include <stdio.h>
 
 void free_list(char **list)
 {
@@ -39,10 +40,24 @@ void display_array(const char **array)
     }
 }
 
-void display_blocks(const char ***blocks)
+void display_block(unsigned const char **block)
+{
+    for (size_t j = 0; j < 4; j++) {
+        printf("[");
+        for (size_t n = 0; n < 4; n++) {
+            printf("%02x", block[j][n]);
+            if (n != 3)
+                printf(",");
+        }
+        printf("]\n");
+    }
+}
+
+void display_blocks(unsigned const char ***blocks)
 {
     for (int i = 0; blocks[i]; i++) {
-        display_array(blocks[i]);
+        printf("block %d\n", i);
+        display_block(blocks[i]);
         printf("\n");
     }
 }

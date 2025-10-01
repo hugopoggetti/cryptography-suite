@@ -7,8 +7,6 @@
 
 #include "./aes.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <strings.h>
 
 const char *aes_c_d
 (const char *message, const char *key, bool encrypt, bool block_mode)
@@ -24,16 +22,21 @@ const char *aes_encrypt
 {
     size_t size = strlen(message);
     const char **keys = key_expansion(key);
-    char ***blocks = NULL;
-
+    int rounds = get_aes_rounds_nb(key);
+    unsigned char ***blocks = NULL;
+    
     message = padd_message(message, block_mode, &size);
+    // printf("size = %zu\n", size);
+    // for (size_t i = 0; i < size; i++) {
+    //     if (message[i] == 0)
+    //         printf(".");
+    //     else
+    //         printf("%c", message[i]);
+    // }
+    // printf("\nsize = %zu\n", size);
     blocks = dispatch_to_blocks(message, size);
-    display_blocks((const char ***)blocks);
-    display_array(keys);
-    free_list((char **)keys);
-
     free((void *)message);
-    return "encrypt";
+    return encrypt(blocks, keys, rounds);
 }
 
 const char *aes_decrypt
