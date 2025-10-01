@@ -2,3 +2,4 @@ message
 cipher
 my_pgp
 compile_commands.json
+.cache
