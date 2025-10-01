@@ -20,7 +20,7 @@ unsigned char hex_char_to_val(char c)
 
 unsigned char hex_pair_to_byte(char high, char low)
 {
-    return ((hex_char_to_val(high) << 4) | hex_char_to_val(low));
+    return (unsigned char)((hex_char_to_val(high) << 4) | hex_char_to_val(low));
 }
 
 void byte_to_hex_pair(unsigned char val, char *dest)

@@ -14,6 +14,7 @@ LIB_SRC_DIR := src/aes
 LIB_OBJ_DIR := $(LIB_SRC_DIR)/obj
 LIB_SRC := $(wildcard $(LIB_SRC_DIR)/*.c)
 LIB_OBJ := $(patsubst $(LIB_SRC_DIR)/%.c,$(LIB_OBJ_DIR)/%.o,$(LIB_SRC))
+CC=clang
 LIB = ./lib/libcipher.so
 LIB_DIR = lib
 CFLAGS += -Wall -Wextra -Wconversion -Wshadow\
@@ -32,9 +33,9 @@ $(TARGET): $(PYTHON_SRC) $(LIB)
 
 lib:$(LIB)
 $(LIB): $(LIB_OBJ) | libdir
-	gcc -shared $(CFLAGS) -o $@ $^
+	$(CC) -shared $(CFLAGS) -o $@ $^
 $(LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.c | $(LIB_OBJ_DIR)
-	gcc -fPIC -c $(CFLAGS) $< -o $@
+	$(CC) -fPIC -c $(CFLAGS) $< -o $@
 $(LIB_OBJ_DIR):
 	mkdir -p $(LIB_OBJ_DIR)
 
