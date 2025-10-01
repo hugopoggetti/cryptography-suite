@@ -60,7 +60,7 @@ void display_blocks(unsigned const char ***blocks)
     }
 }
 
-void free_blocks(const char ***blocks)
+void free_blocks(unsigned char ***blocks)
 {
     for (int i = 0; blocks[i]; i++) {
         free_list((char **)blocks[i]);
