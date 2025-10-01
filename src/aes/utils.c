@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2025
+** my_pgp
+** File description:
+** aes
+*/
+
 #include "./aes.h"
 
 void free_list(char **list)

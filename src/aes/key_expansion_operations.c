@@ -1,11 +1,18 @@
+/*
+** EPITECH PROJECT, 2025
+** my_pgp
+** File description:
+** aes
+*/
+
 #include "aes.h"
 
-unsigned char rcon(int round)
+static unsigned char rcon(int round)
 {
     return RCON[round];
 }
 
-unsigned char sub_byte(unsigned char val)
+static unsigned char sub_byte(unsigned char val)
 {
     return S_BOX[val];
 }
@@ -27,22 +34,6 @@ void sub_word(char *word)
         b = sub_byte(b);
         byte_to_hex_pair(b, word + i);
     }
-}
-
-unsigned char hex_char_to_val(char c)
-{
-    if (c >= '0' && c <= '9')
-        return (unsigned char)(c - '0');
-    if (c >= 'a' && c <= 'f')
-        return (unsigned char)(10 + (c - 'a'));
-    if (c >= 'A' && c <= 'F')
-        return (unsigned char)(10 + (c - 'A'));
-    return 0;
-}
-
-unsigned char hex_pair_to_byte(char high, char low)
-{
-    return ((hex_char_to_val(high) << 4) | hex_char_to_val(low));
 }
 
 char *xor_words(char *new, char *a, char *b)
@@ -72,12 +63,4 @@ void rot_word(char *word)
     }
     word[6] = tmp[0];
     word[7] = tmp[1];
-}
-
-void byte_to_hex_pair(unsigned char val, char *dest)
-{
-    static const char hex[] = "0123456789abcdef";
-
-    dest[0] = hex[(val >> 4) & 0xF];
-    dest[1] = hex[val & 0xF];
 }

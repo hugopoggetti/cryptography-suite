@@ -1,13 +1,22 @@
-#pragma once
+/*
+** EPITECH PROJECT, 2025
+** my_pgp
+** File description:
+** aes
+*/
 
-#include <stdlib.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <strings.h>
 
-#define BLOCK_SIZE 16
+#ifndef _AES_
+    #define _AES_
+
+    #include <stdlib.h>
+    #include <stdbool.h>
+    #include <stdio.h>
+    #include <string.h>
+    #include <stdlib.h>
+    #include <strings.h>
+
+    #define BLOCK_SIZE 16
 
 // Aes function definition for encryption/decryption
 const char *aes_c_d
@@ -19,8 +28,6 @@ const char *aes_decrypt
 
 // Aes key expansion
 const char **key_expansion(const char *key);
-unsigned char rcon(int round);
-unsigned char sub_byte(unsigned char val);
 void xor_rcon(char *word, int round);
 void sub_word(char *word);
 void byte_to_hex_pair(unsigned char val, char *dest);
@@ -73,3 +80,5 @@ static const unsigned char S_BOX[256] = {
     0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68,
     0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16
 };
+
+#endif

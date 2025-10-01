@@ -1,5 +1,11 @@
+/*
+** EPITECH PROJECT, 2025
+** my_pgp
+** File description:
+** aes
+*/
+
 #include "./aes.h"
-#include <stdlib.h>
 
 // return list of words
 char **get_words(const char *key, int words_nb)

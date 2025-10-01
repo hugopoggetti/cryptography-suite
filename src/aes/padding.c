@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2025
+** my_pgp
+** File description:
+** aes
+*/
+
 #include "aes.h"
 
 char *padd_block_mode(const char *message, size_t *size)
