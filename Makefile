@@ -26,7 +26,7 @@ all: $(TARGET)
 $(TARGET): $(PYTHON_SRC) $(LIB)
 	@echo '#!/bin/python3'> $(TARGET)
 	@echo 'from src.parser import parser' >> $(TARGET)
-	@echo 'from src.manager import manager' >> $(TARGET)
+	@echo 'from src.cipher_manager import cipher_manager' >> $(TARGET)
 	@tail -n +5  $(MAIN_SRC) >> $(TARGET)
 	@chmod +x $(TARGET)
 
