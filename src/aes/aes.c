@@ -6,6 +6,9 @@
 */
 
 #include "./aes.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <strings.h>
 
 const char *aes_c_d
 (const char *message, const char *key, bool encrypt, bool block_mode)
@@ -16,22 +19,19 @@ const char *aes_c_d
         return aes_decrypt(message, key, block_mode);
 }
 
-void display_array(const char **array)
-{
-    for (int i = 0; array[i] != NULL; i++) {
-        printf("%s\n", array[i]);
-    }
-}
-
 const char *aes_encrypt
 (const char *message, const char *key, bool block_mode)
 {
     size_t size = strlen(message);
     const char **keys = key_expansion(key);
+    char ***blocks = NULL;
 
     message = padd_message(message, block_mode, &size);
+    blocks = dispatch_to_blocks(message, size);
+    display_blocks((const char ***)blocks);
     display_array(keys);
     free_list((char **)keys);
+
     free((void *)message);
     return "encrypt";
 }

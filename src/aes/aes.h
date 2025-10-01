@@ -37,11 +37,17 @@ char *xor_words(char *new, char *a, char *b);
 unsigned char hex_pair_to_byte(char high, char low);
 unsigned char hex_char_to_val(char c);
 
+// dispatch message to list of 4*4 block
+char ***dispatch_to_blocks(const char *message, size_t mess_size);
+
 // Padding
 const char *padd_message(const char *message, bool block_mode, size_t *size);
 
 // Other
 int get_aes_rounds_nb(const char *key);
+void display_array(const char **array);
+void display_blocks(const char ***blocs);
 void free_list(char **list);
+void free_blocks(const char ***blocks);
 
 #endif

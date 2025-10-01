@@ -31,3 +31,25 @@ int get_aes_rounds_nb(const char *key)
         round = 14;
     return round;
 }
+
+void display_array(const char **array)
+{
+    for (int i = 0; array[i] != NULL; i++) {
+        printf("%s\n", array[i]);
+    }
+}
+
+void display_blocks(const char ***blocks)
+{
+    for (int i = 0; blocks[i]; i++) {
+        display_array(blocks[i]);
+        printf("\n");
+    }
+}
+
+void free_blocks(const char ***blocks)
+{
+    for (int i = 0; blocks[i]; i++) {
+        free_list((char **)blocks[i]);
+    }
+}
