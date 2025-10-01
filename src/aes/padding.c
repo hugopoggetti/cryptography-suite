@@ -22,7 +22,7 @@ char *padd_block_mode(const char *message, size_t *size)
     } else {
         memcpy(padded, message, BLOCK_SIZE);
         (*size) = BLOCK_SIZE;
-    } 
+    }
     return padded;
 }
 

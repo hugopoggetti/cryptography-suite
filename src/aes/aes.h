@@ -16,6 +16,8 @@
     #include <strings.h>
 
     #define BLOCK_SIZE 16
+    #define mul2(x) (((x << 1) ^ (((x >> 7) & 1) * 0x1B)) & 0xFF)
+    #define mul3(x) (mul2(x) ^ x)
 
 // Aes function definition for encryption/decryption
 const char *aes_c_d

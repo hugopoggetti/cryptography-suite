@@ -13,8 +13,8 @@ void xor_block_key(unsigned char **block, const char *key)
 
     for (size_t i = 0; i < 4; i++) {
         for (size_t j = 0; j < 4; j++) {
-            block[j][i] = 
-                (unsigned char)block[j][i] 
+            block[j][i] =
+                (unsigned char)block[j][i]
                 ^ hex_pair_to_byte(key[index], key[index + 1]);
             index += 2;
         }

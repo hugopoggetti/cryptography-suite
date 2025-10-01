@@ -24,16 +24,8 @@ const char *aes_encrypt
     const char **keys = key_expansion(key);
     int rounds = get_aes_rounds_nb(key);
     unsigned char ***blocks = NULL;
-    
+
     message = padd_message(message, block_mode, &size);
-    // printf("size = %zu\n", size);
-    // for (size_t i = 0; i < size; i++) {
-    //     if (message[i] == 0)
-    //         printf(".");
-    //     else
-    //         printf("%c", message[i]);
-    // }
-    // printf("\nsize = %zu\n", size);
     blocks = dispatch_to_blocks(message, size);
     free((void *)message);
     return encrypt(blocks, keys, rounds);

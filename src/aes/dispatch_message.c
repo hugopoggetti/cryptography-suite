@@ -13,18 +13,15 @@ unsigned char **dispatch_to_block(const char *message)
 {
     unsigned char **block = malloc(sizeof(char *) * 5);
     int index = 0;
-    
-    printf("message order:\n");
+
     for (size_t i = 0; i < 4; i++)
         block[i] = malloc(sizeof(char) * 4);
     for (size_t i = 0; i < 4; i++) {
         for (size_t j = 0; j < 4; j++) {
             block[j][i] = (unsigned char)message[index];
-            printf("%02x", (unsigned char)message[index]);
             index++;
         }
     }
-    printf("\n\n");
     block[4] = NULL;
     return block;
 }

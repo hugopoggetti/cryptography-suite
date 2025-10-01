@@ -10,11 +10,12 @@
 void shift_rows_block(unsigned char **block)
 {
     unsigned char tmp[4];
-    for(int i = 1; i < 4; i++) {
-        for(int j = 0; j < 4; j++) {
+
+    for (int i = 1; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
             tmp[j] = block[i][(j + i) % 4];
         }
-        for(int j = 0; j < 4; j++) {
+        for (int j = 0; j < 4; j++) {
             block[i][j] = tmp[j];
         }
     }

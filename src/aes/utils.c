@@ -40,14 +40,12 @@ void display_array(const char **array)
     }
 }
 
-void display_block(unsigned const char **block)
+static void display_block(unsigned const char **block)
 {
     for (size_t j = 0; j < 4; j++) {
         printf("[");
         for (size_t n = 0; n < 4; n++) {
             printf("%02x", block[j][n]);
-            if (n != 3)
-                printf(",");
         }
         printf("]\n");
     }
