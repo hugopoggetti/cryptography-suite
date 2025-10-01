@@ -7,21 +7,24 @@
 
 #include "aes.h"
 
+void format_data(char *buffer, int *c_index, unsigned char data, bool encrypt)
+{
+    if (encrypt) {
+        sprintf(buffer + *c_index, "%02x", data);
+        *c_index += 2;
+    } else {
+        buffer[*c_index] = (char)data;
+        (*c_index)++;
+    }
+}
+
 void fill_out_buffer(unsigned char **block, char *buffer, bool encrypt)
 {
     int c_index = 0;
 
-    for (size_t col = 0; col < 4; col++) {
-        for (size_t row = 0; row < 4; row++) {
-            if (encrypt) {
-                sprintf(buffer + c_index, "%02x", block[row][col]);
-                c_index += 2;
-            } else {
-                buffer[c_index] = (char)block[row][col];
-                c_index++;
-            }
-        }
-    }
+    for (size_t col = 0; col < 4; col++)
+        for (size_t row = 0; row < 4; row++)
+            format_data(buffer, &c_index, block[row][col], encrypt);
 }
 
 const char *concat_result(unsigned char ***blocks, bool encrypt)
