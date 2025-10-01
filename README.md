@@ -3,7 +3,7 @@
 ## features
 
 ### xor 
--[x] encryption/decryption
+- [x] encryption/decryption
 
 ### aes 
 - [x] encryption/decryption
