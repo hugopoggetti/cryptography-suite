@@ -7,16 +7,6 @@
 
 #include "aes.h"
 
-static unsigned char rcon(int round)
-{
-    return RCON[round];
-}
-
-static unsigned char sub_byte(unsigned char val)
-{
-    return S_BOX[val];
-}
-
 void xor_rcon(char *word, int round)
 {
     unsigned char first_byte = hex_pair_to_byte(word[0], word[1]);
