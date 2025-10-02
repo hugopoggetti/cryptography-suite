@@ -6,6 +6,7 @@
 */
 
 #include "aes.h"
+#include <stdio.h>
 
 void format_data(char *buffer, int *c_index, unsigned char data, bool encrypt)
 {
@@ -18,13 +19,11 @@ void format_data(char *buffer, int *c_index, unsigned char data, bool encrypt)
     }
 }
 
-void fill_out_buffer(unsigned char **block, char *buffer, bool encrypt)
+void fill_out_buffer(unsigned char **block, char *buffer, int *c_index, bool encrypt)
 {
-    int c_index = 0;
-
     for (size_t col = 0; col < 4; col++)
         for (size_t row = 0; row < 4; row++)
-            format_data(buffer, &c_index, block[row][col], encrypt);
+            format_data(buffer, c_index, block[row][col], encrypt);
 }
 
 const char *concat_result(unsigned char ***blocks, bool encrypt)
@@ -32,6 +31,7 @@ const char *concat_result(unsigned char ***blocks, bool encrypt)
     size_t nb_blocks = 0;
     char *encrypted_data = NULL;
     size_t out_size = 0;
+    int c_index = 0;
 
     if (encrypt)
         out_size = 32;
@@ -41,7 +41,7 @@ const char *concat_result(unsigned char ***blocks, bool encrypt)
         nb_blocks++;
     encrypted_data = malloc((sizeof(char) * (nb_blocks * out_size + 1)));
     for (size_t i = 0; i < nb_blocks; i++)
-        fill_out_buffer(blocks[i], encrypted_data, encrypt);
+        fill_out_buffer(blocks[i], encrypted_data, &c_index, encrypt);
     encrypted_data[(nb_blocks * out_size)] = '\0';
     return ((const char *)encrypted_data);
 }

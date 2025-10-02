@@ -28,7 +28,7 @@ const char *decrypt
 (unsigned char ***blocks, const char **keys, int round_nb)
 {
     const char *encrypted_data = NULL;
-
+    
     add_round_key(blocks, keys[round_nb]);
     for (int i = round_nb - 1; i >= 1; --i)
         reverse_round(blocks, keys[i]);
