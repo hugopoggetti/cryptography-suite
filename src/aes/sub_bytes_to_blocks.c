@@ -22,3 +22,19 @@ void sub_byte_to_blocks(unsigned char ***blocks)
         sub_byte_to_block(blocks[i]);
     }
 }
+
+void inv_sub_byte_to_block(unsigned char **block)
+{
+    for (size_t i = 0; i < 4; i++) {
+        for (size_t j = 0; j < 4; j++) {
+            block[j][i] = inv_sub_byte(block[j][i]);
+        }
+    }
+}
+
+void inv_sub_byte_to_blocks(unsigned char ***blocks)
+{
+    for (size_t i = 0; blocks[i]; i++) {
+        inv_sub_byte_to_block(blocks[i]);
+    }
+}

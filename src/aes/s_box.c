@@ -42,7 +42,22 @@ static const unsigned char S_BOX[256] = {
     0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16
 };
 
+static unsigned char INV_S_BOX[256];
+
+__attribute__((constructor))
+static void init_inv_sbox(void)
+{
+    for (int i = 0; i < 256; i++) {
+        INV_S_BOX[S_BOX[i]] = (unsigned char)i;
+    }
+}
+
 unsigned char sub_byte(unsigned char val)
 {
     return S_BOX[val];
+}
+
+unsigned char inv_sub_byte(unsigned char val)
+{
+    return INV_S_BOX[val];
 }

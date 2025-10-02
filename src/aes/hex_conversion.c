@@ -31,3 +31,16 @@ void byte_to_hex_pair(unsigned char val, char *dest)
     dest[0] = hex[(val >> 4) & 0xF];
     dest[1] = hex[val & 0xF];
 }
+
+unsigned const char *str_hex_to_str_val(const char *message, size_t *size)
+{
+    unsigned char *val_str = malloc(sizeof(char) * (strlen(message) / 2));
+    size_t index = 0;
+
+    for (size_t i = 0; message[i]; i += 2) {
+        val_str[index] = hex_pair_to_byte(message[i], message[i + 1]);
+        index++;
+    }
+    *size = index;
+    return val_str;
+}
