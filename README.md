@@ -13,3 +13,11 @@
 ### rsa
 - [ ] key generation
 - [ ] encryption/decryption
+
+#### TODO:
+- [ ] fix result with pdf ?
+- [ ] unit test and test coding style with ci
+- [ ] check result when open libcipher.so
+- [ ] unit tests on parser maybe
+- [ ] rsa key gen / rsa cipher/decipher
+- [ ] pgp system
