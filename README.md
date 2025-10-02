@@ -14,7 +14,7 @@
 - [ ] key generation
 - [ ] encryption/decryption
 
-#### TODO:
+## TODO
 - [ ] fix results differing with pdf ?
 - [ ] unit test and test coding style with ci
 - [ ] check result when open libcipher.so
