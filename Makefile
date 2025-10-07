@@ -10,7 +10,7 @@ MAIN_SRC = src/main.py
 TARGET = my_pgp
 
 # Shared Lib for aes
-LIB_SRC_DIR := src/aes
+LIB_SRC_DIR := src/aes/aes_src
 LIB_OBJ_DIR := $(LIB_SRC_DIR)/obj
 LIB_SRC := $(wildcard $(LIB_SRC_DIR)/*.c)
 LIB_OBJ := $(patsubst $(LIB_SRC_DIR)/%.c,$(LIB_OBJ_DIR)/%.o,$(LIB_SRC))
@@ -45,7 +45,7 @@ libdir:
 clean:
 	rm -rf $(TARGET)
 	rm -rf $(LIB)
-	rm -rf $(LIB_OBJ)
+	rm -rf $(LIB_OBJ_DIR)
 	rm -rf $(LIB_DIR)
 
 fclean:

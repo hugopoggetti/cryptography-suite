@@ -5,7 +5,7 @@
 ** aes
 */
 
-#include "./aes.h"
+#include "include/aes.h"
 
 // return list of words
 char **get_words(const char *key, int words_nb)
