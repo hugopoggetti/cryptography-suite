@@ -1,11 +1,15 @@
 import ctypes
+import sys
 from ..parser import parser
 
 # Encryption and Decryption module
 from ..xor import xor_c_d
 
 def init_cipher_lib():
-    lib = ctypes.CDLL("./lib/libcipher.so")
+    try:
+        lib = ctypes.CDLL("./lib/libcipher.so")
+    except OSError:
+            sys.exit(84)
     lib.aes_c_d.argtypes = (ctypes.c_char_p, ctypes.c_char_p, ctypes.c_bool, ctypes.c_bool)
     lib.aes_c_d.restype = ctypes.c_char_p
     return lib
