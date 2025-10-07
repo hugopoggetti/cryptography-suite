@@ -3,6 +3,7 @@ from ..parser import parser
 # Encryption and Decryption module
 from ..xor import xor_c_d
 from ..aes import aes_c_d
+from ..rsa import rsa_c_d
 
 def encryption_decryption(args):
     message = None
@@ -17,5 +18,5 @@ def encryption_decryption(args):
         message = aes_c_d.aes_c_d(args.message, args.key, args.block_mode, mode)
         message = message.decode()
     elif args.system == parser.system.rsa:
-        message = "test"
+        message = rsa_c_d.rsa_c_d(args)
     print(f"{message}")
