@@ -16,7 +16,8 @@
 
 ## TODO
 - [x] fix results differing with pdf for xor ?
-- [ ] fix results differing with pdf for aes?
+- [x] fix results differing with pdf for aes?
+- [ ] fix results differing with pdf for pgp?
 - [ ] unit test and test coding style with ci
 - [x] check result when open libcipher.so
 - [ ] unit tests on parser maybe

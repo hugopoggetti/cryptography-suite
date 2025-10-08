@@ -8,7 +8,7 @@ def pgp_system(args) -> str:
     keys = args.key.split(":")
     data = None
     ciphered_key = None
-
+    
     if args.mode == parser.mode.encrypt:
         ciphered_key = rsa_c_d.rsa_encrypt(keys[0], keys[1])
         if args.system == parser.system.pgpaes:
