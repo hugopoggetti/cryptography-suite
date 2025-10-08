@@ -32,7 +32,6 @@ def lcm(a, b):
 
 def le_to_number(hex_str) -> int:
     hex_str = hex_str.replace(' ', '').replace('\n', '').replace('\\', '')
-    
     if len(hex_str) % 2 == 1:
         hex_str = '0' + hex_str
     bytes_list = [hex_str[i:i+2] for i in range(0, len(hex_str), 2)]
