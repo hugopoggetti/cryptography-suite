@@ -83,8 +83,8 @@ class parser:
                 usage.display_usage()
                 return 84
             try:
-                self.p = int(args[0], 16)
-                self.q = int(args[1], 16)
+                self.p = args[0]
+                self.q = args[1]
             except ValueError:
                 usage.display_usage()
                 return 84
@@ -95,6 +95,8 @@ class parser:
 
     # get message from stdin
     def get_message(self) -> int:
+        if (self.mode == mode.generate):
+            return 0
         self.message = sys.stdin.read()[:-1]
         if not self.message:
             return 84

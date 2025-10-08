@@ -5,7 +5,9 @@
 ** aes
 */
 
-#include "./aes.h"
+#include "include/aes.h"
+#include <stdio.h>
+#include <string.h>
 
 const char *aes_c_d
 (const char *message, const char *key, bool encrypt, bool block_mode)
@@ -16,31 +18,30 @@ const char *aes_c_d
         return aes_decrypt(message, key, block_mode);
 }
 
-void display_array(const char **array)
-{
-    for (int i = 0; array[i] != NULL; i++) {
-        printf("%s\n", array[i]);
-    }
-}
-
 const char *aes_encrypt
 (const char *message, const char *key, bool block_mode)
 {
     size_t size = strlen(message);
     const char **keys = key_expansion(key);
+    int rounds = get_aes_rounds_nb(key);
+    unsigned char ***blocks = NULL;
 
     message = padd_message(message, block_mode, &size);
-    display_array(keys);
-    free_list((char **)keys);
+    blocks = dispatch_to_blocks(message, size);
     free((void *)message);
-    return "encrypt";
+    return encrypt(blocks, keys, rounds);
 }
 
 const char *aes_decrypt
 (const char *message, const char *key, bool block_mode)
 {
-    (void)message;
-    (void)key;
-    (void)block_mode;
-    return "decrypt";
+    size_t size = strlen(message);
+    int rounds = get_aes_rounds_nb(key);
+    const char **keys = key_expansion(key);
+    const unsigned char *crypted_data = str_hex_to_str_val(message, &size);
+    unsigned char ***blocks = NULL;
+
+    blocks = dispatch_to_blocks((const char *)crypted_data, size);
+    free((void *)crypted_data);
+    return decrypt(blocks, keys, rounds);
 }
