@@ -13,7 +13,7 @@ def encryption_decryption(args) -> None:
     if args.mode == parser.mode.decrypt:
         mode = False
     if args.system == parser.system.xor:
-        message = xor_c_d.xor_cipher(args.message[::-1], args.key, mode, args.block_mode)
+        message = xor_c_d.xor_cipher(args.message, args.key, mode, args.block_mode)
     elif args.system == parser.system.aes:
         message = aes_c_d.aes_c_d(args.message, args.key, args.block_mode, mode)
         message = message.decode()
