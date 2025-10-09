@@ -20,7 +20,7 @@ LIB_DIR = lib
 CFLAGS += -g3 -Wall -Wextra -Wconversion -Wshadow\
 		  -Wpointer-arith -Wcast-align -Wuninitialized -Wpedantic
 
-.PHONY: all clean
+.PHONY: all clean key_gen
 
 all: $(TARGET)
 
@@ -41,6 +41,10 @@ $(LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.c
 libdir:
 	mkdir -p $(LIB_DIR)
 
+key_gen:
+	cd src/key_gen && cargo build
+	ln -s -f src/key_gen/target/debug/key_gen .
+
 tests_run:
 	make -s
 	python3 -m unittest discover -s test -p "*_test.py"
@@ -50,6 +54,8 @@ clean:
 	rm -rf $(LIB)
 	rm -rf $(LIB_OBJ_DIR)
 	rm -rf $(LIB_DIR)
+	rm -rf key_gen
+	cd src/key_gen && cargo clean 
 
 fclean:
 	make clean
