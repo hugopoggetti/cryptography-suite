@@ -26,18 +26,20 @@ class parser:
         self.message = None
  
     def check_errors(self) -> int:
-        if self.mode is None:
+        if self.mode is None or self.system is None:
             return 84
         if self.mode == mode.generate:
             if self.system != system.rsa:
                 return 84
             if self.p is None or self.q is None:
                 return 84
+        elif self.mode != mode.generate:
+            if self.key is None:
+                return 84
         return 0
 
     def parse(self):
         if len(self.arg) < 2:
-            usage.display_usage()
             return 84
 
         crypto = self.arg[0].lower()
@@ -52,7 +54,6 @@ class parser:
         elif crypto in ("pgp-aes", "pgpaes"):
             self.system = system.pgpaes
         else:
-            usage.display_usage()
             return 84
 
         try:
@@ -62,13 +63,11 @@ class parser:
                 ["cipher", "decipher", "generate", "block", "help"]
             )
         except getopt.GetoptError:
-            usage.display_usage()
             return 84
 
         for opt, _ in opts:
             if opt in ('-h', '--help'):
                 usage.display_usage()
-                sys.exit(0)
             elif opt in ('-c', '--cipher'):
                 self.mode = mode.encrypt
             elif opt in ('-d', '--decipher'):
@@ -80,18 +79,16 @@ class parser:
 
         if self.mode == mode.generate:
             if len(args) < 2:
-                usage.display_usage()
                 return 84
             try:
                 self.p = args[0]
                 self.q = args[1]
             except ValueError:
-                usage.display_usage()
                 return 84
         else:
             if len(args) > 0:
                 self.key = args[0]
-        return 0
+        return self.check_errors()
 
     # get message from stdin
     def get_message(self) -> int:

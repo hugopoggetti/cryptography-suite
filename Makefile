@@ -42,6 +42,10 @@ $(LIB_OBJ_DIR):
 libdir:
 	mkdir -p $(LIB_DIR)
 
+tests_run:
+	make -s
+	python3 -m unittest ./test/args/args_test.py
+
 clean:
 	rm -rf $(TARGET)
 	rm -rf $(LIB)
