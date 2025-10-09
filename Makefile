@@ -44,7 +44,6 @@ libdir:
 
 tests_run:
 	make -s
-	find test -type d -exec touch {}/__init__.py \;
 	python3 -m unittest discover -s test -p "*_test.py"
 
 clean:
