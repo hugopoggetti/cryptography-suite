@@ -5,7 +5,7 @@
 ** aes
 */
 
-#include "include/aes.h"
+#include "../include/aes.h"
 #include <stdio.h>
 
 void free_list(char **list)

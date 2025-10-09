@@ -5,7 +5,7 @@
 ** aes
 */
 
-#include "include/aes.h"
+#include "../include/aes.h"
 #include <stdio.h>
 
 // dispatch to 4*4 block
