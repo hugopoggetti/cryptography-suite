@@ -44,7 +44,10 @@ libdir:
 
 tests_run:
 	make -s
-	python3 -m unittest ./test/args/args_test.py
+	python3 -m unittest test.args.args_test
+	python3 -m unittest test.xor.xor_test
+	python3 -m unittest test.aes.aes_test
+	python3 -m unittest test.rsa.rsa_test
 
 clean:
 	rm -rf $(TARGET)
