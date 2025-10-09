@@ -55,7 +55,7 @@ clean:
 	rm -rf $(LIB_OBJ_DIR)
 	rm -rf $(LIB_DIR)
 	rm -rf key_gen
-	cd src/key_gen && cargo clean 
+	rm -rf src/key_gen/target
 
 fclean:
 	make clean
