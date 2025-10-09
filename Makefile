@@ -44,7 +44,7 @@ libdir:
 
 tests_run:
 	make -s
-	python3 -m unittest ./test/args/args_test.py
+	python3 -m unittest discover -s test -p "*_test.py"
 
 clean:
 	rm -rf $(TARGET)
