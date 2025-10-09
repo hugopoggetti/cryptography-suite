@@ -54,8 +54,7 @@ clean:
 
 fclean:
 	make clean
-	rm -rf src/*/*__
-	rm -rf src/*__
+	find . -type d -name "__pycache__" -exec rm -r {} +
 
 re:
 	make fclean
