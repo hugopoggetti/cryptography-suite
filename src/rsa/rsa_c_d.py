@@ -1,4 +1,3 @@
-from ast import Tuple
 import sys
 import math
 from ..parser import parser
@@ -7,9 +6,9 @@ def rsa_c_d(args: parser.parser) -> str:
     if args.mode == parser.mode.generate and args.p and args.q:
         return gen_keys(args.p, args.q)
     elif args.mode == parser.mode.encrypt and args.message and args.key:
-        return rsa_encrypt(args.message, args.key)
+        return rsa_encrypt(args.message, args.key, False)
     elif args.mode == parser.mode.decrypt and args.message and args.key:
-        return rsa_decrypt(args.message, args.key)
+        return rsa_decrypt(args.message, args.key, False)
     else:
         sys.exit(84)
 
@@ -65,14 +64,6 @@ def gen_keys(p_hex: str, q_hex: str) -> str:
     d_le = number_to_le(d)
     return f"public key: {e_le}-{n_le}\nprivate key: {d_le}-{n_le}"
 
-def concat_hex_from_string(message: str) -> str:
-    res = []
-
-    for c in message:
-        x = hex(ord(c))
-        res.append(x[2:])
-    return "0x" + "".join(res)
-
 def split_keys(key: str) -> tuple[int, int]:
     keys = key.split("-")
     a = le_to_number(keys[0])
@@ -91,14 +82,22 @@ def le_number_to_string(num: int) -> str:
     message_bytes = num.to_bytes(num_bytes, byteorder='little')
     return message_bytes.decode('ascii')
 
-def rsa_encrypt(message: str, key: str) -> str:
+def rsa_encrypt(message: str, key: str, pgp: bool) -> str:
     e, n = split_keys(key)
-    m = string_to_le_number(message)
+
+    if pgp:
+        m = le_to_number(message)
+    else:
+        m = string_to_le_number(message)
     c = pow(m, e, n)
     return number_to_le(c)
 
-def rsa_decrypt(cipher: str, key: str) -> str:
+def rsa_decrypt(cipher: str, key: str, pgp: bool) -> str:
     d, n = split_keys(key)
     c = le_to_number(cipher)
     m = pow(c, d, n)
-    return le_number_to_string(m)
+
+    if pgp:
+        return number_to_le(m)
+    else:
+        return le_number_to_string(m)

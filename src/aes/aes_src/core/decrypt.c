@@ -5,7 +5,7 @@
 ** aes
 */
 
-#include "include/aes.h"
+#include "../include/aes.h"
 #include <strings.h>
 
 void reverse_round(unsigned char ***blocks, const char *key)

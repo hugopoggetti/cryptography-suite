@@ -12,7 +12,7 @@ TARGET = my_pgp
 # Shared Lib for aes
 LIB_SRC_DIR := src/aes/aes_src
 LIB_OBJ_DIR := $(LIB_SRC_DIR)/obj
-LIB_SRC := $(wildcard $(LIB_SRC_DIR)/*.c)
+LIB_SRC := $(wildcard $(LIB_SRC_DIR)/**/*.c)
 LIB_OBJ := $(patsubst $(LIB_SRC_DIR)/%.c,$(LIB_OBJ_DIR)/%.o,$(LIB_SRC))
 CC=clang
 LIB = ./lib/libcipher.so
@@ -31,13 +31,12 @@ $(TARGET): $(PYTHON_SRC) $(LIB)
 	@tail -n +5  $(MAIN_SRC) >> $(TARGET)
 	@chmod +x $(TARGET)
 
-lib:$(LIB)
+lib: $(LIB)
 $(LIB): $(LIB_OBJ) | libdir
 	$(CC) -shared $(CFLAGS) -o $@ $^
-$(LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.c | $(LIB_OBJ_DIR)
+$(LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
 	$(CC) -fPIC -c $(CFLAGS) $< -o $@
-$(LIB_OBJ_DIR):
-	mkdir -p $(LIB_OBJ_DIR)
 
 libdir:
 	mkdir -p $(LIB_DIR)
