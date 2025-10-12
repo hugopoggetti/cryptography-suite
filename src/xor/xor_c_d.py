@@ -4,9 +4,9 @@ from typing import List
 def xor_cipher(message: str, key: str, encrypt: bool, block_mode: bool) -> str:
     message = hanlde_padding(message, key, encrypt, block_mode)
     if encrypt:
-        return xor_encrypt(message, key)
+        return xor_encrypt(message[::-1], key)
     else:
-        return xor_decrypt(message, key)
+        return xor_decrypt(message, key)[::-1]
 
 def pad_with_zero(message: str, key: str):
     diff = len(key) - len(message)

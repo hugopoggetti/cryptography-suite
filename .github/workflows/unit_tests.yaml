@@ -1,0 +1,22 @@
+name: Unit tests
+run-name: Testing program
+on: [push, pull_request]
+
+jobs:
+  run_tests:
+    name: run_tests
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v4
+      - id: tests_run
+        name: Run make tests_run
+        timeout-minutes: 15
+        run: |
+          make tests_run 
+      - id: compile
+        name: Compilation
+        run: |
+          make 

@@ -11,13 +11,15 @@
 - [x] support 128 bits/192 bits/ 256 bits key
 
 ### rsa
-- [ ] key generation
-- [ ] encryption/decryption
+- [x] key generation
+- [x] encryption/decryption
 
 ## TODO
-- [ ] fix results differing with pdf ?
+- [x] fix results differing with pdf for xor ?
+- [x] fix results differing with pdf for aes?
+- [x] fix results differing with pdf for pgp?
 - [ ] unit test and test coding style with ci
-- [ ] check result when open libcipher.so
-- [ ] unit tests on parser maybe
-- [ ] rsa key gen / rsa cipher/decipher
-- [ ] pgp system
+- [x] check result when open libcipher.so
+- [x] unit tests on parser maybe
+- [x] rsa key gen / rsa cipher/decipher
+- [x] pgp system

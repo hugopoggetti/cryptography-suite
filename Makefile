@@ -10,9 +10,9 @@ MAIN_SRC = src/main.py
 TARGET = my_pgp
 
 # Shared Lib for aes
-LIB_SRC_DIR := src/aes
+LIB_SRC_DIR := src/aes/aes_src
 LIB_OBJ_DIR := $(LIB_SRC_DIR)/obj
-LIB_SRC := $(wildcard $(LIB_SRC_DIR)/*.c)
+LIB_SRC := $(wildcard $(LIB_SRC_DIR)/**/*.c)
 LIB_OBJ := $(patsubst $(LIB_SRC_DIR)/%.c,$(LIB_OBJ_DIR)/%.o,$(LIB_SRC))
 CC=clang
 LIB = ./lib/libcipher.so
@@ -20,7 +20,7 @@ LIB_DIR = lib
 CFLAGS += -g3 -Wall -Wextra -Wconversion -Wshadow\
 		  -Wpointer-arith -Wcast-align -Wuninitialized -Wpedantic
 
-.PHONY: all clean
+.PHONY: all clean key_gen
 
 all: $(TARGET)
 
@@ -31,27 +31,43 @@ $(TARGET): $(PYTHON_SRC) $(LIB)
 	@tail -n +5  $(MAIN_SRC) >> $(TARGET)
 	@chmod +x $(TARGET)
 
-lib:$(LIB)
+lib: $(LIB)
 $(LIB): $(LIB_OBJ) | libdir
 	$(CC) -shared $(CFLAGS) -o $@ $^
-$(LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.c | $(LIB_OBJ_DIR)
+$(LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
 	$(CC) -fPIC -c $(CFLAGS) $< -o $@
-$(LIB_OBJ_DIR):
-	mkdir -p $(LIB_OBJ_DIR)
 
 libdir:
 	mkdir -p $(LIB_DIR)
 
+key_gen:
+	cd src/key_gen && cargo build
+	ln -s -f src/key_gen/target/debug/key_gen .
+
+tests_run:
+	make -s
+	python3 -m unittest discover -s test -p "*_test.py"
+
+style:
+	@if [ ! -f "/tmp/banana/src/banana-check-repo" ]; then \
+		echo "Downloading banana checker..."; \
+		git clone https://github.com/Epitech/banana-coding-style-checker.git /tmp/banana; \
+	fi
+	make clean
+	/tmp/banana/src/banana-check-repo .
+
 clean:
 	rm -rf $(TARGET)
 	rm -rf $(LIB)
-	rm -rf $(LIB_OBJ)
+	rm -rf $(LIB_OBJ_DIR)
 	rm -rf $(LIB_DIR)
+	rm -rf key_gen
+	rm -rf src/key_gen/target
 
 fclean:
 	make clean
-	rm -rf src/*/*__
-	rm -rf src/*__
+	find . -type d -name "__pycache__" -exec rm -r {} +
 
 re:
 	make fclean
