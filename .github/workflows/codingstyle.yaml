@@ -9,9 +9,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check EPITECH coding style
         run: |
-          curl -sL https://github.com/Epitech/coding-style-checker/releases/latest/download/coding-style-checker.sh -o coding-style-checker.sh
-          chmod +x coding-style-checker.sh
-          ./coding-style-checker.sh $(pwd) $(pwd)
+          curl -sL https://raw.githubusercontent.com/Epitech/coding-style-checker/main/coding-style.sh -o coding-style.sh
+          chmod +x coding-style.sh
+          ./coding-style.sh . .
           if [ -s coding-style-reports.log ]; then
             cat coding-style-reports.log
             exit 1
