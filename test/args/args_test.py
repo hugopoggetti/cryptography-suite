@@ -65,6 +65,20 @@ class TestArgs(unittest.TestCase):
             capture_output=True,
         )
         self.assertEqual(result.returncode, 0)
+    def test_invalid_args(self):
+        result = subprocess.run(
+            "echo test | ./my_pgp xor -b -c 5657",
+            shell=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 84)
+    def test_invalid_args2(self):
+        result = subprocess.run(
+            "./my_pgp rsa -g -b d3 e3",
+            shell=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 84)
 
 if __name__ == "__main__":
     unittest.main()
