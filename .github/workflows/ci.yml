@@ -7,8 +7,6 @@ jobs:
     container: epitechcontent/epitest-docker
     steps:
       - uses: actions/checkout@v4
-      - run: git clone https://github.com/Epitech/banana-coding-style-checker.git /tmp/banana
-      - run: make clean
-      - run: /tmp/banana/src/banana-check-repo .
       - run: make
+      - run: make style
       - run: make tests_run

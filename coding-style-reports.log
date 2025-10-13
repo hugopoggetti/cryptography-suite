@@ -1,0 +1,15 @@
+./Makefile:53: MAJOR:C-F3
+./src/aes/aes_src/core/decrypt.c:30: MINOR:C-G7
+./src/aes/aes_src/rounds/mix_columns.c:10: MAJOR:C-H1
+./src/aes/aes_src/rounds/mix_columns.c:10: MINOR:C-V1
+./src/aes/aes_src/rounds/mix_columns.c:11: MAJOR:C-H1
+./src/aes/aes_src/rounds/mix_columns.c:11: MINOR:C-V1
+./src/aes/aes_src/rounds/mix_columns.c:12: MAJOR:C-H1
+./src/aes/aes_src/rounds/mix_columns.c:12: MINOR:C-V1
+./src/aes/aes_src/rounds/mix_columns.c:13: MAJOR:C-H1
+./src/aes/aes_src/rounds/mix_columns.c:13: MINOR:C-V1
+./src/aes/aes_src/rounds/mix_columns.c:14: MAJOR:C-H1
+./src/aes/aes_src/rounds/mix_columns.c:14: MINOR:C-V1
+./src/aes/aes_src/rounds/mix_columns.c:15: MAJOR:C-H1
+./src/aes/aes_src/rounds/mix_columns.c:15: MINOR:C-V1
+./src/aes/aes_src/utils/concat_blocks.c:22: MAJOR:C-F3

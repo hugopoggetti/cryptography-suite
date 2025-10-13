@@ -50,12 +50,7 @@ tests_run:
 	python3 -m unittest discover -s test -p "*_test.py"
 
 style:
-	@if [ ! -f "/tmp/banana/src/banana-check-repo" ]; then \
-		echo "Downloading banana checker..."; \
-		git clone https://github.com/Epitech/banana-coding-style-checker.git /tmp/banana; \
-	fi
-	make clean
-	/tmp/banana/src/banana-check-repo .
+	curl -s https://raw.githubusercontent.com/Epitech/coding-style-checker/main/coding-style.sh | bash -s . /tmp/reports || true
 
 clean:
 	rm -rf $(TARGET)
