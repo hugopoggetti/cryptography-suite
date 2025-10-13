@@ -49,9 +49,6 @@ tests_run:
 	make -s
 	python3 -m unittest discover -s test -p "*_test.py"
 
-style:
-	curl -s https://raw.githubusercontent.com/Epitech/coding-style-checker/main/coding-style.sh | bash -s . /tmp/reports || true
-
 clean:
 	rm -rf $(TARGET)
 	rm -rf $(LIB)

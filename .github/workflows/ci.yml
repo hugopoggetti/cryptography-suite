@@ -1,4 +1,4 @@
-name: Tests and Style
+name: CI Tests and Style
 on: [push, pull_request]
 
 jobs:
@@ -8,5 +8,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: make
-      - run: make style
+      - name: Check EPITECH coding style
+        run: |
+          curl -sL https://github.com/Epitech/coding-style-checker/releases/latest/download/coding-style-checker.sh -o coding-style-checker.sh
+          chmod +x coding-style-checker.sh
+          ./coding-style-checker.sh $(pwd) $(pwd)
+          if [ -s coding-style-reports.log ]; then
+            cat coding-style-reports.log
+            exit 1
+          fi
       - run: make tests_run
