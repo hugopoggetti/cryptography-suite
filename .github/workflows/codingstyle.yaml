@@ -1,13 +1,12 @@
-name: CI Tests and Style
+name: Coding Style
 on: [push, pull_request]
 
 jobs:
-  tests:
+  coding_style:
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker
     steps:
       - uses: actions/checkout@v4
-      - run: make
       - name: Check EPITECH coding style
         run: |
           curl -sL https://github.com/Epitech/coding-style-checker/releases/latest/download/coding-style-checker.sh -o coding-style-checker.sh
@@ -17,4 +16,3 @@ jobs:
             cat coding-style-reports.log
             exit 1
           fi
-      - run: make tests_run
