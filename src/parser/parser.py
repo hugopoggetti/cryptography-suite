@@ -75,10 +75,13 @@ class parser:
             elif opt in ('-g', '--generate'):
                 self.mode = mode.generate
             elif opt in ('-b', '--block'):
-                self.block_mode = True
+                if self.system and self.mode:
+                    self.block_mode = True
+                else:
+                    return 84
 
         if self.mode == mode.generate:
-            if len(args) < 2:
+            if len(args) != 2 or self.block_mode:
                 return 84
             try:
                 self.p = args[0]
