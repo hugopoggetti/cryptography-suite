@@ -3,3 +3,8 @@ cipher
 my_pgp
 compile_commands.json
 .cache
+*.o
+*.so
+lib/
+__pycache__/
+target/
