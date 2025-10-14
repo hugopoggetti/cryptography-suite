@@ -88,7 +88,14 @@ class TestArgs(unittest.TestCase):
         self.assertEqual(result.returncode, 84)
     def test_rsa_key_gen(self):
         result = subprocess.run(
-            "./my_pgp rsa -g -b 0 0",
+            "./my_pgp rsa -g 0 0",
+            shell=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 84)
+    def test_rsa_key_gen2(self):
+        result = subprocess.run(
+            "./my_pgp rsa -g 02 03",
             shell=True,
             capture_output=True,
         )
