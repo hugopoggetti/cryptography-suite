@@ -23,3 +23,7 @@
 - [x] unit tests on parser maybe
 - [x] rsa key gen / rsa cipher/decipher
 - [x] pgp system
+
+## To Fix
+- [ ] rsa key gen with -g 02 03
+- [ ] rsa key gen with -g 00 00  

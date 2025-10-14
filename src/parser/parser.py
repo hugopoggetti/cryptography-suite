@@ -86,6 +86,8 @@ class parser:
             try:
                 self.p = args[0]
                 self.q = args[1]
+                if int(self.p, 16) < 2 or int(self.q, 16) < 2:
+                    return 84
             except ValueError:
                 return 84
         else:

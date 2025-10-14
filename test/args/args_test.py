@@ -60,7 +60,7 @@ class TestArgs(unittest.TestCase):
         self.assertEqual(result.returncode, 0)
     def test_valid_args_rsa_gen(self):
         result = subprocess.run(
-            "./my_pgp rsa -g  d3 e3",
+            "./my_pgp rsa -g d3 e3",
             shell=True,
             capture_output=True,
         )
@@ -72,9 +72,58 @@ class TestArgs(unittest.TestCase):
             capture_output=True,
         )
         self.assertEqual(result.returncode, 84)
-    def test_invalid_args2(self):
+    def test_invalid_args3(self):
         result = subprocess.run(
             "./my_pgp rsa -g -b d3 e3",
+            shell=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 84)
+    def test_invalid_args4(self):
+        result = subprocess.run(
+            "./my_pgp rsa -g -b d3",
+            shell=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 84)
+    def test_rsa_key_gen(self):
+        result = subprocess.run(
+            "./my_pgp rsa -g -b 0 0",
+            shell=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 84)
+    def test_args_missing(self):
+        result = subprocess.run(
+            "./my_pgp xo -c -b 5758",
+            shell=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 84)
+    def test_args_missing1(self):
+        result = subprocess.run(
+            "./my_pgp xor -c -b",
+            shell=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 84)
+    def test_args_missing2(self):
+        result = subprocess.run(
+            "./my_pgp xor -c",
+            shell=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 84)
+    def test_args_missing3(self):
+        result = subprocess.run(
+            "./my_pgp -d",
+            shell=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 84)
+    def test_args_missing4(self):
+        result = subprocess.run(
+            "./my_pgp -b -c 5758",
             shell=True,
             capture_output=True,
         )

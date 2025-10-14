@@ -35,6 +35,7 @@ const char *aes_encrypt
 const char *aes_decrypt
 (const char *message, const char *key, bool block_mode)
 {
+    (void)block_mode;
     size_t size = strlen(message);
     int rounds = get_aes_rounds_nb(key);
     const char **keys = key_expansion(key);
