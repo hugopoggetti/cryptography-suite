@@ -41,9 +41,9 @@ $(LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.c
 libdir:
 	mkdir -p $(LIB_DIR)
 
-key_gen:
-	cd src/key_gen && cargo build
-	ln -s -f src/key_gen/target/debug/key_gen .
+random_keygen:
+	cd bonus/random_keygen && cargo build
+	ln -s -f bonus/random_keygen/target/debug/random_keygen .
 
 tests_run:
 	make -s
@@ -54,8 +54,8 @@ clean:
 	rm -rf $(LIB)
 	rm -rf $(LIB_OBJ_DIR)
 	rm -rf $(LIB_DIR)
-	rm -rf key_gen
-	rm -rf src/key_gen/target
+	rm -rf random_keygen
+	rm -rf bonus/random_keygen/target
 
 fclean:
 	make clean
