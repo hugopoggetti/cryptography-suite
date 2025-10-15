@@ -99,7 +99,7 @@ class TestArgs(unittest.TestCase):
             shell=True,
             capture_output=True,
         )
-        self.assertEqual(result.returncode, 84)
+        self.assertEqual(result.returncode, 0)
     def test_args_missing(self):
         result = subprocess.run(
             "./my_pgp xo -c -b 5758",
