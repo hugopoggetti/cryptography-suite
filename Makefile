@@ -15,7 +15,7 @@ LIB_OBJ_DIR := $(LIB_SRC_DIR)/obj
 LIB_SRC := $(wildcard $(LIB_SRC_DIR)/**/*.c)
 LIB_OBJ := $(patsubst $(LIB_SRC_DIR)/%.c,$(LIB_OBJ_DIR)/%.o,$(LIB_SRC))
 CC=clang
-LIB = ./lib/libcipher.so
+LIB = ./lib/libaes.so
 LIB_DIR = lib
 CFLAGS += -g3 -Wall -Wextra -Wconversion -Wshadow\
 		  -Wpointer-arith -Wcast-align -Wuninitialized -Wpedantic

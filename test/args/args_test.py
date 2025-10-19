@@ -99,7 +99,14 @@ class TestArgs(unittest.TestCase):
             shell=True,
             capture_output=True,
         )
-        self.assertEqual(result.returncode, 0)
+        self.assertEqual(result.returncode, 84)
+    def test_rsa_key_gen3(self):
+        result = subprocess.run(
+            "./my_pgp rsa -g 03 02",
+            shell=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 84)
     def test_args_missing(self):
         result = subprocess.run(
             "./my_pgp xo -c -b 5758",
@@ -131,6 +138,20 @@ class TestArgs(unittest.TestCase):
     def test_args_missing4(self):
         result = subprocess.run(
             "./my_pgp -b -c 5758",
+            shell=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 84)
+    def test_args_missing5(self):
+        result = subprocess.run(
+            "echo 6767 | ./my_pgp xor -c -b -c 5758",
+            shell=True,
+            capture_output=True,
+        )
+        self.assertEqual(result.returncode, 84)
+    def test_args_missing6(self):
+        result = subprocess.run(
+            "echo 6767 | ./my_pgp xor -c -b foo",
             shell=True,
             capture_output=True,
         )

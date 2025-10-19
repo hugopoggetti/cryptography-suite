@@ -1,4 +1,4 @@
-import sys, getopt
+import sys, getopt, string
 from enum import Enum
 from ..usage import usage 
 
@@ -15,8 +15,8 @@ class mode(Enum):
     generate = 3
 
 class parser:
-    def __init__(self, arg):
-        self.arg = arg
+    def __init__(self, args):
+        self.args = args
         self.system = None
         self.mode = None
         self.block_mode = False
@@ -37,12 +37,38 @@ class parser:
             if self.key is None:
                 return 84
         return 0
+    
+    def check_dup_flags(self, opts: list[tuple[str, str]]) -> bool:
+        seen_opts = set()
+        for opt, _ in opts:
+            if opt in seen_opts:
+                return True
+            seen_opts.add(opt)
+        return False
+    
+    def get_keys(self, args: list[str]):
+        if self.mode == mode.generate:
+            if len(args) != 2 or self.block_mode:
+                return 84
+            try:
+                self.p = args[0]
+                self.q = args[1]
+                if ((int(self.p, 16) < 2 or int(self.q, 16) < 2) 
+                    or ({int(self.p, 16), int(self.q, 16)} == {2, 3})):
+                    return 84
+            except ValueError:
+                return 84
+        else:
+            valid_hex = string.hexdigits + '-' # '-' for check rsa key
+            if len(args) > 0 and all(c in valid_hex for c in args[0]):
+                self.key = args[0]
+        return self.check_errors()
 
     def parse(self):
-        if len(self.arg) < 2:
+        if len(self.args) < 2:
             return 84
 
-        crypto = self.arg[0].lower()
+        crypto = self.args[0].lower()
         if crypto == "xor":
             self.system = system.xor
         elif crypto == "aes":
@@ -58,11 +84,14 @@ class parser:
 
         try:
             opts, args = getopt.getopt(
-                self.arg[1:],
+                self.args[1:],
                 "cdgbh",
                 ["cipher", "decipher", "generate", "block", "help"]
             )
         except getopt.GetoptError:
+            return 84
+
+        if self.check_dup_flags(opts):
             return 84
 
         for opt, _ in opts:
@@ -79,21 +108,7 @@ class parser:
                     self.block_mode = True
                 else:
                     return 84
-
-        if self.mode == mode.generate:
-            if len(args) != 2 or self.block_mode:
-                return 84
-            try:
-                self.p = args[0]
-                self.q = args[1]
-                if int(self.p, 16) < 2 or int(self.q, 16) < 2:
-                    return 84
-            except ValueError:
-                return 84
-        else:
-            if len(args) > 0:
-                self.key = args[0]
-        return self.check_errors()
+        return self.get_keys(args)
 
     # get message from stdin
     def get_message(self) -> int:
