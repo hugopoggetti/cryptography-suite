@@ -59,25 +59,25 @@ class parser:
             except ValueError:
                 return 84
         else:
-            valid_hex = string.hexdigits + '-' # '-' for check rsa key
+            valid_hex = string.hexdigits + "-:" # '-' for check rsa key
             if len(args) > 0 and all(c in valid_hex for c in args[0]):
                 self.key = args[0]
         return self.check_errors()
 
-    def parse(self):
+    def parse(self) -> int:
         if len(self.args) < 2:
             return 84
 
-        crypto = self.args[0].lower()
+        crypto = self.args[0]
         if crypto == "xor":
             self.system = system.xor
         elif crypto == "aes":
             self.system = system.aes
         elif crypto == "rsa":
             self.system = system.rsa
-        elif crypto in ("pgp-xor", "pgpxor"):
+        elif crypto == "pgp-xor":
             self.system = system.pgpxor
-        elif crypto in ("pgp-aes", "pgpaes"):
+        elif crypto == "pgp-aes":
             self.system = system.pgpaes
         else:
             return 84
