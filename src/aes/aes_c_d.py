@@ -4,7 +4,7 @@ import struct
 
 def init_cipher_lib():
     try:
-        lib = ctypes.CDLL("./lib/libcipher.so")
+        lib = ctypes.CDLL("./lib/libaes.so")
     except OSError:
             sys.exit(84)
     lib.aes_c_d.argtypes = (ctypes.c_char_p, ctypes.c_char_p, ctypes.c_bool, ctypes.c_bool)
