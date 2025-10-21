@@ -1,4 +1,4 @@
-import sys, getopt, string
+import sys, getopt, string, select
 from enum import Enum
 from ..usage import usage 
 
@@ -45,7 +45,7 @@ class parser:
                 return True
             seen_opts.add(opt)
         return False
-    
+ 
     def get_keys(self, args: list[str]):
         if self.mode == mode.generate:
             if len(args) != 2 or self.block_mode:
@@ -104,7 +104,9 @@ class parser:
             elif opt in ('-g', '--generate'):
                 self.mode = mode.generate
             elif opt in ('-b', '--block'):
-                if self.system and self.mode:
+                if self.system == system.rsa:
+                    return 84
+                elif self.system and self.mode:
                     self.block_mode = True
                 else:
                     return 84
@@ -114,7 +116,13 @@ class parser:
     def get_message(self) -> int:
         if (self.mode == mode.generate):
             return 0
-        self.message = sys.stdin.read()[:-1]
+        self.message = None 
+
+        if select.select([sys.stdin], [], [], 0.0)[0]:
+            try:
+                self.message = sys.stdin.read()[:-1]
+            except IOError:
+                return 84
         if not self.message:
             return 84
         return 0

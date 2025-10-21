@@ -28,4 +28,5 @@
 ## To Fix
 - [ ] Time out on missing arguments
 - [ ] rsa key gen with -g 02 03
+./my_pgp rsa -c -b 42
 - [ ] rsa key gen with -g 00 00  
