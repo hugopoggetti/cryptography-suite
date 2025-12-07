@@ -1,6 +1,6 @@
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
-![Language](https://img.shields.io/badge/language-C%20%7C%20Rust-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+![Language](https://img.shields.io/badge/language-C%20%7C%20Rust%20%7C%20Python-blue)
+
 # Cryptography Suite
 
 A modular encryption system implementing classical cryptographic algorithms and their hybrid combination following the PGP model.
